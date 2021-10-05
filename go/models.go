@@ -2,8 +2,6 @@
 
 package querytest
 
-import ()
-
 type Foo struct {
 	Bar      bool
 	Interval int64
