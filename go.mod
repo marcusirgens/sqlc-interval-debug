@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/jackc/pgx/v4 v4.13.0
+	github.com/lib/pq v1.10.2
 	pkg.iterate.no/pgutil v0.0.0-20210926180051-a38c59a58790
 )
 

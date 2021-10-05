@@ -11,16 +11,26 @@ import (
 	"time"
 
 	_ "github.com/jackc/pgx/v4/stdlib"
-	"pkg.iterate.no/pgutil"
+	_ "github.com/lib/pq"
 
 	querytest "github.com/marcusirgens/sqlc-interval-debug/go"
+	"pkg.iterate.no/pgutil"
 )
 
 var dbUrl = flag.String("database-url", "", "Database URL")
 
 func TestQueries(t *testing.T) {
+	var drivers = []string{"postgres", "pgx"}
+	for _, driver := range drivers {
+		t.Run(driver, func(t *testing.T) {
+			testQueries(t, driver)
+		})
+	}
+}
+
+func testQueries(t *testing.T, driver string) {
 	t.Logf("connecting to %s", *dbUrl)
-	db, err := sql.Open("pgx", *dbUrl)
+	db, err := sql.Open(driver, *dbUrl)
 	if err != nil {
 		t.Fatalf("connecting to database: %v", err)
 	}
